@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  iOSTaskApp
-//
-//  Created by Tolga on 12.03.2022.
-//
-
 import UIKit
 
 class TasksViewController: UIViewController, Animatable{
@@ -15,6 +8,8 @@ class TasksViewController: UIViewController, Animatable{
     @IBOutlet weak var doneTasksContainerView: UIView!
     
     private let databaseManager = DatabaseManager()
+    private let authManager = AuthManager()
+    private let navigationManager = NavigationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +29,30 @@ class TasksViewController: UIViewController, Animatable{
         showContainerView(for: .ongoing)
     }
     
+    private func logoutUser() {
+        authManager.logout { result in
+            switch result {
+            case.success:
+                self.navigationManager.show(scene: .onboarding)
+            case.failure(let error):
+                self.showToast(state: .error, message: error.localizedDescription)
+            }
+            
+        }
+    }
+    
+    private func showMenuOptions() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let logoutAction = UIAlertAction(title: "Logout", style: .default) { _ in
+            self.logoutUser()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(logoutAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -44,6 +63,10 @@ class TasksViewController: UIViewController, Animatable{
         default:
             break
         }
+    }
+    
+    @IBAction func menuButtonTapped(_sender: UIButton)  {
+        showMenuOptions()
     }
     
     private func showContainerView(for section: MenuSection) {
@@ -86,6 +109,7 @@ class TasksViewController: UIViewController, Animatable{
     private func showEditTask(task: Task) {
         performSegue(withIdentifier: "showEditTask", sender: task)
     }
+    
     @IBAction func addButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: "showNewTask", sender: nil)
     }

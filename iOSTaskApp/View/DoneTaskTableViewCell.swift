@@ -1,8 +1,17 @@
-//
-//  DoneTaskTableViewCell.swift
-//  iOSTaskApp
-//
-//  Created by Tolga on 19.03.2022.
-//
+import UIKit
 
-import Foundation
+class DoneTaskTableViewCell: UITableViewCell {
+    
+    var actionButtonDidTap: (() -> Void)?
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    func configure(with task: Task) {
+        titleLabel.text = task.title
+    }
+    
+    @IBAction func actionButtonTapped(_ sender: UIButton) {
+        actionButtonDidTap?()
+    }
+    
+}

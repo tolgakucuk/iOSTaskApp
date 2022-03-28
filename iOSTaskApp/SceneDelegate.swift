@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  iOSTaskApp
-//
-//  Created by Tolga on 12.03.2022.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

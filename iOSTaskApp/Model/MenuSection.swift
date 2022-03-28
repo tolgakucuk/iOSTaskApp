@@ -1,8 +1,6 @@
-//
-//  MenuSection.swift
-//  iOSTaskApp
-//
-//  Created by Tolga on 13.03.2022.
-//
-
 import Foundation
+
+enum MenuSection: String, CaseIterable {
+    case ongoing = "Ongoing"
+    case done    = "Done"
+}

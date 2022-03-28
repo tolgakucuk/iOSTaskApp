@@ -1,8 +1,19 @@
-//
-//  OngoinTaskTableViewCell.swift
-//  iOSTaskApp
-//
-//  Created by Tolga on 16.03.2022.
-//
+import UIKit
 
-import Foundation
+class OngoingTaskTableViewCell: UITableViewCell {
+    
+    var actionButtonDidTap: (() -> Void)?
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var deadlineLabel: UILabel!
+    
+    func configure(with task: Task) {
+        titleLabel.text = task.title
+        deadlineLabel.text = "ends at \(task.dateLine) " 
+    }
+    
+    @IBAction func actionButtonTapped(_ sender: UIButton) {
+        actionButtonDidTap?()
+    }
+    
+}

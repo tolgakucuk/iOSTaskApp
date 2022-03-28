@@ -1,8 +1,12 @@
-//
-//  Ext+Date.swift
-//  iOSTaskApp
-//
-//  Created by Tolga on 21.03.2022.
-//
-
 import Foundation
+
+extension Date {
+
+    func toString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yy"
+        return formatter.string(from: self)
+    }
+    
+    
+}
